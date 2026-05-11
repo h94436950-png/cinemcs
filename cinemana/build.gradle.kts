@@ -1,53 +1,31 @@
+// use an integer for version numbers
+version = 1
 
-plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-}
-
-repositories {
-    mavenCentral()
-    maven { url = uri("https://jitpack.io") }
+cloudstream {
+    language = "ar"
+    authors = listOf("okibcn")
+    status = 1
+    tvTypes = listOf(
+        "Movie",
+        "TvSeries",
+    )
+    // iconUrl = "https://..."
 }
 
 android {
     namespace = "com.cinemana"
-
-    compileSdk = 34
-    defaultConfig {
-        minSdk = 21
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlin {
-    compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8)
-        freeCompilerArgs.add("-XXLanguage:+BreakContinueInInlineLambdas")
-    }
-}
-
     buildFeatures {
         buildConfig = true
     }
-
-    sourceSets {
-        getByName("main") {
-            manifest.srcFile("src/main/AndroidManifest.xml")
-        }
+    kotlinOptions {
+        freeCompilerArgs += "-XXLanguage:+BreakContinueInInlineLambdas"
     }
 }
 
 dependencies {
-
-    val cloudstream by configurations
+    val implementation by configurations
     implementation("com.google.android.material:material:1.13.0")
     implementation("androidx.browser:browser:1.9.0")
     implementation("androidx.room:room-ktx:2.8.0")
-
     implementation("androidx.preference:preference-ktx:1.2.1")
-
-        cloudstream("com.lagradost:cloudstream3:pre-release")
-
-
 }
